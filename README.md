@@ -14,6 +14,11 @@ put the `terraform-provider-softlayer` binary somewhere in your PATH.
 Example for setting up a virtual server with an SSH key:
 
 ```hcl
+provider "softlayer" {
+    username = ""
+    api_key = ""
+}
+
 resource "softlayer_ssh_key" "my_key" {
     name = "my_key"
     public_key = "~/.ssh/id_rsa.pub"
@@ -22,7 +27,7 @@ resource "softlayer_ssh_key" "my_key" {
 resource "softlayer_virtualserver" "my_server" {
     name = "my_server"
     domain = "example.com"
-    ssh_keys = [softlayer_ssh_key.my_key.keypair_id]
+    ssh_keys = ["${softlayer_ssh_key.my_key.keypair_id}"]
     image = "DEBIAN_7_64"
     region = "ams01"
     public_network_speed = 10
@@ -32,6 +37,20 @@ resource "softlayer_virtualserver" "my_server" {
     user_data = "{\"fox\":[45]}"
 }
 ```
+
+You'll need to provide your SoftLayer username and API key,
+so that Terraform can connect. If you don't want to put
+credentials in your onfiguration file, you can leave them
+out:
+
+```
+provider "softlayer" {}
+```
+
+...and instead set these environment variables:
+
+- **SOFTLAYER_USERNAME**: Your SoftLayer username
+- **SOFTLAYER_API_KEY**: Your API key
 
 ## Building
 
