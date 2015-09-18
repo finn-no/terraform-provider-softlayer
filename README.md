@@ -54,9 +54,9 @@ provider "softlayer" {}
 
 ## Building
 
-1) [Install Go](https://golang.org/doc/install) on your machine
-2) [Set up Gopath](https://golang.org/doc/code.html)
-3) `git clone` this repository into `$GOPATH/src/github.com/finn-no/terraform-provider-softlayer`
-4) Run `go get` to get dependencies
-5) Run `go install` to build the binary. You will now find the
-   binary at `$GOPATH/bin/terraform-provider-softlayer`.
+1.  [Install Go](https://golang.org/doc/install) on your machine
+2.  [Set up Gopath](https://golang.org/doc/code.html)
+3.  `git clone` this repository into `$GOPATH/src/github.com/finn-no/terraform-provider-softlayer`
+4.  Run `go get` to get dependencies
+5.  Run `go install` to build the binary. You will now find the
+    binary at `$GOPATH/bin/terraform-provider-softlayer`.
