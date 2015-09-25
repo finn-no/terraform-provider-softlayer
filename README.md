@@ -40,7 +40,7 @@ resource "softlayer_virtualserver" "my_server" {
 
 You'll need to provide your SoftLayer username and API key,
 so that Terraform can connect. If you don't want to put
-credentials in your onfiguration file, you can leave them
+credentials in your configuration file, you can leave them
 out:
 
 ```
