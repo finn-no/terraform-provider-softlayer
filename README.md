@@ -40,7 +40,7 @@ resource "softlayer_ssh_key" "my_key" {
 resource "softlayer_virtualserver" "my_server" {
     name = "my_server"
     domain = "example.com"
-    ssh_keys = ["${softlayer_ssh_key.my_key.keypair_id}"]
+    ssh_keys = ["${softlayer_ssh_key.my_key.id}"]
     image = "DEBIAN_7_64"
     region = "ams01"
     public_network_speed = 10
