@@ -12,7 +12,7 @@ put the `terraform-provider-softlayer` binary somewhere in your system.
 [Copied from the Terraform documentation](https://www.terraform.io/docs/plugins/basics.html):
 > To install a plugin, put the binary somewhere on your filesystem, then configure Terraform to be able to find it. The configuration where plugins are defined is ~/.terraformrc for Unix-like systems and %APPDATA%/terraform.rc for Windows.
 
-This is what you would need to add terraform-provider-softlayer, if you have built the project from source:
+This is what you would need to add to your .terraformrc, if you have built the project from source:
 
 ```hcl
 providers {
