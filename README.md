@@ -7,7 +7,20 @@ servers on SoftLayer via [Terraform](https://terraform.io/).
 
 For now, there are no published artifacts/binaries for this provider.
 In order to use it, you must compile the project from source, and then
-put the `terraform-provider-softlayer` binary somewhere in your PATH.
+put the `terraform-provider-softlayer` binary somewhere in your system.
+
+[Copied from the Terraform documentation](https://www.terraform.io/docs/plugins/basics.html):
+> To install a plugin, put the binary somewhere on your filesystem, then configure Terraform to be able to find it. The configuration where plugins are defined is ~/.terraformrc for Unix-like systems and %APPDATA%/terraform.rc for Windows.
+
+This is what you would need to add terraform-provider-softlayer, if you have built the project from source:
+
+```hcl
+providers {
+  softlayer = "$GOPATH/bin/terraform-provider-softlayer"
+}
+```
+
+If the binary is placed somewhere else, update the path accordingly.
 
 ## Using the provider
 
