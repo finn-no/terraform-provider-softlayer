@@ -24,7 +24,7 @@ If the binary is placed somewhere else, update the path accordingly.
 
 ## Using the provider
 
-Example for setting up a virtual server with an SSH key:
+Example for setting up a virtual server with an SSH key (create this as sl.tf and run terraform commands from this directory):
 
 ```hcl
 provider "softlayer" {
@@ -34,7 +34,7 @@ provider "softlayer" {
 
 resource "softlayer_ssh_key" "my_key" {
     name = "my_key"
-    public_key = "~/.ssh/id_rsa.pub"
+    public_key = "${file(\"~/.ssh/id_rsa.pub\")}"
 }
 
 resource "softlayer_virtualserver" "my_server" {
@@ -73,3 +73,11 @@ provider "softlayer" {}
 4.  Run `go get` to get dependencies
 5.  Run `go install` to build the binary. You will now find the
     binary at `$GOPATH/bin/terraform-provider-softlayer`.
+
+## Running
+0.  You must create a new key not already added to softlayer (ssh-keygen).  We will assume that is id_rsa.
+1.  create the example file sl.tf in your working directory
+2.  terraform plan
+3.  terraform apply
+4.  look up the public ip in the softlayer dashboard
+5.  ssh -i ~/.ssh/id_rsa.pub root@<public-ip>
