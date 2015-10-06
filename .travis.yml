@@ -24,13 +24,13 @@ env:
 - GOOS=plan9, GOARCH=386
 - GOOS=plan9, GOARCH=amd64
 - GOOS=solaris, GOARCH=amd64
-- GOOS=windows, GOARCH=386
-- GOOS=windows, GOARCH=amd64
+- GOOS=windows, GOARCH=386, EXT=.exe
+- GOOS=windows, GOARCH=amd64, EXT=.exe
 
 go:
   - 1.5
 
 install:
   - go get
-  - go build
+  - go build -o ${GOOS}-${GOARCH}${EXT}
   - ls
