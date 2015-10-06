@@ -5,22 +5,18 @@ servers on SoftLayer via [Terraform](https://terraform.io/).
 
 ## Installing
 
-For now, there are no published artifacts/binaries for this provider.
-In order to use it, you must compile the project from source, and then
-put the `terraform-provider-softlayer` binary somewhere in your system.
+Binaries are published on Bintray: [ ![Download](https://api.bintray.com/packages/finn-no/terraform-provider-softlayer/terraform-provider-softlayer/images/download.svg) ](https://bintray.com/finn-no/terraform-provider-softlayer/terraform-provider-softlayer/_latestVersion)
 
 [Copied from the Terraform documentation](https://www.terraform.io/docs/plugins/basics.html):
 > To install a plugin, put the binary somewhere on your filesystem, then configure Terraform to be able to find it. The configuration where plugins are defined is ~/.terraformrc for Unix-like systems and %APPDATA%/terraform.rc for Windows.
 
-This is what you would need to add to your .terraformrc, if you have built the project from source:
+You should update your .terraformrc and refer to the binary:
 
 ```hcl
 providers {
-  softlayer = "$GOPATH/bin/terraform-provider-softlayer"
+  softlayer = "/path/to/terraform-provider-softlayer"
 }
 ```
-
-If the binary is placed somewhere else, update the path accordingly.
 
 ## A note about SSH keys
 
@@ -69,7 +65,7 @@ provider "softlayer" {}
 - **SOFTLAYER_USERNAME**: Your SoftLayer username
 - **SOFTLAYER_API_KEY**: Your API key
 
-## Building
+## Building from source
 
 1.  [Install Go](https://golang.org/doc/install) on your machine
 2.  [Set up Gopath](https://golang.org/doc/code.html)
