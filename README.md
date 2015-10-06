@@ -22,6 +22,10 @@ providers {
 
 If the binary is placed somewhere else, update the path accordingly.
 
+## A note about SSH keys
+
+It looks like SoftLayer only supports one instance of every SSH key for users. If you get an error like "SSH key already exists", that the same key has already been uploaded to SoftLayer - maybe under a different name. For now, the easiest way to fix the problem is to generate a new key for every terraform cluster setup.
+
 ## Using the provider
 
 Example for setting up a virtual server with an SSH key (create this as sl.tf and run terraform commands from this directory):
