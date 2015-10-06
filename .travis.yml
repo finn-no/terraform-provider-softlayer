@@ -1,31 +1,31 @@
 language: go
 
 env:
-- GIMME_OS=darwin, GIMME_ARCH=386
-#- GIMME_OS=darwin, GIMME_ARCH=amd64
-#- GIMME_OS=darwin, GIMME_ARCH=arm
-#- GIMME_OS=darwin, GIMME_ARCH=arm64
-#- GIMME_OS=dragonfly, GIMME_ARCH=amd64
-#- GIMME_OS=freebsd, GIMME_ARCH=386
-#- GIMME_OS=freebsd, GIMME_ARCH=amd64
-#- GIMME_OS=freebsd, GIMME_ARCH=arm
-- GIMME_OS=linux, GIMME_ARCH=386
-#- GIMME_OS=linux, GIMME_ARCH=amd64
-#- GIMME_OS=linux, GIMME_ARCH=arm
-#- GIMME_OS=linux, GIMME_ARCH=arm64
-#- GIMME_OS=linux, GIMME_ARCH=ppc64
-#- GIMME_OS=linux, GIMME_ARCH=ppc64le
-#- GIMME_OS=netbsd, GIMME_ARCH=386
-#- GIMME_OS=netbsd, GIMME_ARCH=amd64
-#- GIMME_OS=netbsd, GIMME_ARCH=arm
-#- GIMME_OS=openbsd, GIMME_ARCH=386
-#- GIMME_OS=openbsd, GIMME_ARCH=amd64
-#- GIMME_OS=openbsd, GIMME_ARCH=arm
-#- GIMME_OS=plan9, GIMME_ARCH=386
-#- GIMME_OS=plan9, GIMME_ARCH=amd64
-#- GIMME_OS=solaris, GIMME_ARCH=amd64
-- GIMME_OS=windows, GIMME_ARCH=386, EXT=.exe
-#- GIMME_OS=windows, GIMME_ARCH=amd64, EXT=.exe
+- GIMME_OS=darwin GIMME_ARCH=386
+#- GIMME_OS=darwin GIMME_ARCH=amd64
+#- GIMME_OS=darwin GIMME_ARCH=arm
+#- GIMME_OS=darwin GIMME_ARCH=arm64
+#- GIMME_OS=dragonfly GIMME_ARCH=amd64
+#- GIMME_OS=freebsd GIMME_ARCH=386
+#- GIMME_OS=freebsd GIMME_ARCH=amd64
+#- GIMME_OS=freebsd GIMME_ARCH=arm
+- GIMME_OS=linux GIMME_ARCH=386
+#- GIMME_OS=linux GIMME_ARCH=amd64
+#- GIMME_OS=linux GIMME_ARCH=arm
+#- GIMME_OS=linux GIMME_ARCH=arm64
+#- GIMME_OS=linux GIMME_ARCH=ppc64
+#- GIMME_OS=linux GIMME_ARCH=ppc64le
+#- GIMME_OS=netbsd GIMME_ARCH=386
+#- GIMME_OS=netbsd GIMME_ARCH=amd64
+#- GIMME_OS=netbsd GIMME_ARCH=arm
+#- GIMME_OS=openbsd GIMME_ARCH=386
+#- GIMME_OS=openbsd GIMME_ARCH=amd64
+#- GIMME_OS=openbsd GIMME_ARCH=arm
+#- GIMME_OS=plan9 GIMME_ARCH=386
+#- GIMME_OS=plan9 GIMME_ARCH=amd64
+#- GIMME_OS=solaris GIMME_ARCH=amd64
+- GIMME_OS=windows GIMME_ARCH=386 EXT=.exe
+#- GIMME_OS=windows GIMME_ARCH=amd64 EXT=.exe
 
 go:
   - 1.5
