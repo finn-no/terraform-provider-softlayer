@@ -1,36 +1,36 @@
 language: go
 
 env:
-- GOOS=darwin, GOARCH=386
-#- GOOS=darwin, GOARCH=amd64
-#- GOOS=darwin, GOARCH=arm
-#- GOOS=darwin, GOARCH=arm64
-#- GOOS=dragonfly, GOARCH=amd64
-#- GOOS=freebsd, GOARCH=386
-#- GOOS=freebsd, GOARCH=amd64
-#- GOOS=freebsd, GOARCH=arm
-- GOOS=linux, GOARCH=386
-#- GOOS=linux, GOARCH=amd64
-#- GOOS=linux, GOARCH=arm
-#- GOOS=linux, GOARCH=arm64
-#- GOOS=linux, GOARCH=ppc64
-#- GOOS=linux, GOARCH=ppc64le
-#- GOOS=netbsd, GOARCH=386
-#- GOOS=netbsd, GOARCH=amd64
-#- GOOS=netbsd, GOARCH=arm
-#- GOOS=openbsd, GOARCH=386
-#- GOOS=openbsd, GOARCH=amd64
-#- GOOS=openbsd, GOARCH=arm
-#- GOOS=plan9, GOARCH=386
-#- GOOS=plan9, GOARCH=amd64
-#- GOOS=solaris, GOARCH=amd64
-- GOOS=windows, GOARCH=386, EXT=.exe
-#- GOOS=windows, GOARCH=amd64, EXT=.exe
+- GIMME_OS=darwin, GIMME_ARCH=386
+#- GIMME_OS=darwin, GIMME_ARCH=amd64
+#- GIMME_OS=darwin, GIMME_ARCH=arm
+#- GIMME_OS=darwin, GIMME_ARCH=arm64
+#- GIMME_OS=dragonfly, GIMME_ARCH=amd64
+#- GIMME_OS=freebsd, GIMME_ARCH=386
+#- GIMME_OS=freebsd, GIMME_ARCH=amd64
+#- GIMME_OS=freebsd, GIMME_ARCH=arm
+- GIMME_OS=linux, GIMME_ARCH=386
+#- GIMME_OS=linux, GIMME_ARCH=amd64
+#- GIMME_OS=linux, GIMME_ARCH=arm
+#- GIMME_OS=linux, GIMME_ARCH=arm64
+#- GIMME_OS=linux, GIMME_ARCH=ppc64
+#- GIMME_OS=linux, GIMME_ARCH=ppc64le
+#- GIMME_OS=netbsd, GIMME_ARCH=386
+#- GIMME_OS=netbsd, GIMME_ARCH=amd64
+#- GIMME_OS=netbsd, GIMME_ARCH=arm
+#- GIMME_OS=openbsd, GIMME_ARCH=386
+#- GIMME_OS=openbsd, GIMME_ARCH=amd64
+#- GIMME_OS=openbsd, GIMME_ARCH=arm
+#- GIMME_OS=plan9, GIMME_ARCH=386
+#- GIMME_OS=plan9, GIMME_ARCH=amd64
+#- GIMME_OS=solaris, GIMME_ARCH=amd64
+- GIMME_OS=windows, GIMME_ARCH=386, EXT=.exe
+#- GIMME_OS=windows, GIMME_ARCH=amd64, EXT=.exe
 
 go:
   - 1.5
 
 install:
   - go get
-  - go build -o "terraform-provider-softlayer-${GOOS}-${GOARCH}${EXT}"
+  - go build -o "terraform-provider-softlayer-${GIMME_OS}-${GIMME_ARCH}${EXT}"
   - ls
