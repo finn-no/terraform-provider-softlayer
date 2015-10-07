@@ -5,4 +5,5 @@ go:
 
 install:
   - go get github.com/mitchellh/gox
-  - gox ./...
+  - go get
+  - gox
