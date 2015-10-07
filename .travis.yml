@@ -29,8 +29,3 @@ env:
 
 go:
   - 1.5
-
-install:
-  - go get
-  - go build -o "terraform-provider-softlayer-${GIMME_OS}-${GIMME_ARCH}${EXT}"
-  - ls
