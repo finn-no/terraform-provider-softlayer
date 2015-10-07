@@ -25,6 +25,7 @@ env:
 #- GIMME_OS=plan9 GIMME_ARCH=amd64
 #- GIMME_OS=solaris GIMME_ARCH=amd64
 - GIMME_OS=windows GIMME_ARCH=386 EXT=.exe
+- RUN_INTEGRATION_TESTS=true
 #- GIMME_OS=windows GIMME_ARCH=amd64 EXT=.exe
 
 go:
