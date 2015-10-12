@@ -1,0 +1,24 @@
+{
+  "package": {
+    "name": "terraform-provider-softlayer",
+    "repo": "terraform-provider-softlayer",
+    "subject": "finn-no",
+    "desc": "A Terraform provider for SoftLayer",
+    "website_url": "https://github.com/finn-no/terraform-provider-softlayer",
+    "issue_tracker_url": "https://github.com/finn-no/terraform-provider-softlayer/issues",
+    "vcs_url": "https://github.com/finn-no/terraform-provider-softlayer.git",
+    "licenses": ["Apache 2.0"],
+    "labels": ["terraform", "softlayer", "cloud", "infrastructure", "deployment"],
+    "public_download_numbers": true,
+    "public_stats": true
+  },
+
+  "version": {
+    "name": "0.1"
+  },
+
+  "files": [{
+    "includePattern": "terraform-provider-softlayer(.*)"
+  }],
+  "publish": false
+}
