@@ -1,0 +1,20 @@
+language: go
+
+go:
+  - 1.5
+
+install:
+  - go get github.com/mitchellh/gox
+  - go get
+  - gox
+  - find .
+  - go test ./...
+
+deploy:
+  provider: bintray
+  file: ".bintray.json"
+  user: "eirslett"
+  key:
+    secure: "EFpQJHmwMt5xM0F2s2egetQMI90Mmg2YU5ZIcr6PufkptUQ+ifD1GmgAqySnRirspUpLeqD2nGgYgBKF8ePlYfJ4a9vgHnbZ1oOom0G0ey2LUInBwrRb/twmQnK5a2nfcAEcGB0++Qoq0BK7yJc1rs07M1YvstsXU0ymOJ+4ZY4XCRB82Vv+pfJqdBRlYqpYyCbNV2EVnUcDvRtpJxGypdvtdNpjvVHU6uyAFyXAzwl5hggLtnmTYNQWefvXKSoInUl0uqCH3JCCdEGWVTuCKqCI8dvswF5kL4W6OpMXhY0dAWkOpAiADp79VtPjPOQSSPd9BoqKDwW9KvwLOrA3LUw7iNuVgcQNvlfsf59J17Df+R9kNIUh0p9wXCkvY99AGy+uvjVonwybo3K6GOGG8v7mcj/0CrITBrGRYcUJCbwmxlBrjYpIg3jV6Vmjtt+FlRbAuh2pff3krCPR2NrH/kt8UA/MhbSAiVNClaBTmbu6LrCmyZ+XDlULahJK41j3DG6TNRG0L7VxThfEY13H6Xnc+2fZ37PzRHzdof3h5eK9iIC7jJtcSR1ml3cPgtLmO9ixDkjEaVorjH9iRbLn5SHcVKwmsL6MZI4uS9bcnO8VAb2PSS0rfXGE3DURRAD3xf9SEdyZJKtKnZ5h6DRtWi8jccVR4Z71DCCsP/K6xII="
+  on:
+    tags: true
