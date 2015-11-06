@@ -1,6 +1,7 @@
 package softlayer
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"strconv"
@@ -14,7 +15,7 @@ import (
 func resourceSoftLayerVirtualserver() *schema.Resource {
 	return &schema.Resource{
 		Create: resourceSoftLayerVirtualserverCreate,
-		Read: resourceSoftLayerVirtualserverRead,
+		Read:   resourceSoftLayerVirtualserverRead,
 		Update: resourceSoftLayerVirtualserverUpdate,
 		Delete: resourceSoftLayerVirtualserverDelete,
 		Schema: map[string]*schema.Schema{
@@ -32,6 +33,14 @@ func resourceSoftLayerVirtualserver() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
+			},
+
+			"image_type": &schema.Schema{
+				Type:         schema.TypeString,
+				Optional:     true,
+				ForceNew:     true,
+				Default:      "os_code",
+				ValidateFunc: validateImageType,
 			},
 
 			"region": &schema.Schema{
@@ -59,7 +68,7 @@ func resourceSoftLayerVirtualserver() *schema.Resource {
 			"public_network_speed": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
-				Default: 1000,
+				Default:  1000,
 			},
 
 			"ipv4_address": &schema.Schema{
@@ -86,6 +95,17 @@ func resourceSoftLayerVirtualserver() *schema.Resource {
 	}
 }
 
+// this fellow validates image_type
+func validateImageType(value interface{}, key string) ([]string, []error) {
+	// image_type can be only either 'os_code' or 'template_id'
+	if value != "os_code" && value != "template_id" {
+		return nil, []error{
+			errors.New(fmt.Sprintf("%s must be either 'os_code' or 'template_id'", key)),
+		}
+	}
+	return nil, nil
+}
+
 func getNameForBlockDevice(i int) string {
 	// skip 1, which is reserved for the swap disk.
 	// so we get 0, 2, 3, 4, 5 ...
@@ -106,9 +126,9 @@ func getBlockDevices(d *schema.ResourceData) []datatypes.BlockDevice {
 			blockRef := fmt.Sprintf("disks.%d", i)
 			name := getNameForBlockDevice(i)
 			capacity := d.Get(blockRef).(int)
-			block := datatypes.BlockDevice {
+			block := datatypes.BlockDevice{
 				Device: name,
-				DiskImage: datatypes.DiskImage {
+				DiskImage: datatypes.DiskImage{
 					Capacity: capacity,
 				},
 			}
@@ -124,30 +144,47 @@ func resourceSoftLayerVirtualserverCreate(d *schema.ResourceData, meta interface
 		return fmt.Errorf("The client was nil.")
 	}
 
-	dc := datatypes.Datacenter {
+	dc := datatypes.Datacenter{
 		Name: d.Get("region").(string),
 	}
 
-	networkComponent := datatypes.NetworkComponents {
+	networkComponent := datatypes.NetworkComponents{
 		MaxSpeed: d.Get("public_network_speed").(int),
 	}
 
-	opts := datatypes.SoftLayer_Virtual_Guest_Template {
-		Hostname: d.Get("name").(string),
-		Domain: d.Get("domain").(string),
-		OperatingSystemReferenceCode: d.Get("image").(string),
+	// Options to be passed to Softlayer API
+	opts := datatypes.SoftLayer_Virtual_Guest_Template{
+		Hostname:          d.Get("name").(string),
+		Domain:            d.Get("domain").(string),
 		HourlyBillingFlag: true,
-		Datacenter: dc,
-		StartCpus: d.Get("cpu").(int),
-		MaxMemory: d.Get("ram").(int),
+		Datacenter:        dc,
+		StartCpus:         d.Get("cpu").(int),
+		MaxMemory:         d.Get("ram").(int),
 		NetworkComponents: []datatypes.NetworkComponents{networkComponent},
-		BlockDevices: getBlockDevices(d),
+		BlockDevices:      getBlockDevices(d),
+	}
+
+	// get image type before doing anything
+	image_type := d.Get("image_type").(string)
+
+	// get the image ID
+	image := d.Get("image").(string)
+
+	// 'image' value is interpreted depending on the
+	// value set on 'image_type'
+	if image_type == "template_id" {
+		// Set ID of the base image template to be used (if any)
+		base_image := datatypes.BlockDeviceTemplateGroup{image}
+		opts.BlockDeviceTemplateGroup = &base_image
+	} else {
+		// Use a stock OS instead for this resource
+		opts.OperatingSystemReferenceCode = image
 	}
 
 	userData := d.Get("user_data").(string)
 	if userData != "" {
-		opts.UserData = []datatypes.UserData {
-			datatypes.UserData {
+		opts.UserData = []datatypes.UserData{
+			datatypes.UserData{
 				Value: userData,
 			},
 		}
@@ -160,8 +197,8 @@ func resourceSoftLayerVirtualserverCreate(d *schema.ResourceData, meta interface
 		for i := 0; i < ssh_keys; i++ {
 			key := fmt.Sprintf("ssh_keys.%d", i)
 			id := d.Get(key).(int)
-			sshKey := datatypes.SshKey {
-			  Id: id,
+			sshKey := datatypes.SshKey{
+				Id: id,
 			}
 			opts.SshKeys = append(opts.SshKeys, sshKey)
 		}
@@ -240,8 +277,8 @@ func resourceSoftLayerVirtualserverUpdate(d *schema.ResourceData, meta interface
 
 	userData := d.Get("user_data").(string)
 	if userData != "" {
-		result.UserData = []datatypes.UserData {
-			datatypes.UserData {
+		result.UserData = []datatypes.UserData{
+			datatypes.UserData{
 				Value: userData,
 			},
 		}
@@ -283,7 +320,7 @@ func WaitForPublicIpAvailable(d *schema.ResourceData, meta interface{}) (interfa
 
 	stateConf := &resource.StateChangeConf{
 		Pending: []string{"", "unavailable"},
-		Target: "available",
+		Target:  "available",
 		Refresh: func() (interface{}, string, error) {
 			fmt.Println("Refreshing server state...")
 			client := meta.(*Client).virtualGuestService
@@ -301,8 +338,8 @@ func WaitForPublicIpAvailable(d *schema.ResourceData, meta interface{}) (interfa
 				return result, "available", nil
 			}
 		},
-		Timeout: 30 * time.Minute,
-		Delay: 10 * time.Second,
+		Timeout:    30 * time.Minute,
+		Delay:      10 * time.Second,
 		MinTimeout: 3 * time.Second,
 	}
 
@@ -318,7 +355,7 @@ func WaitForNoActiveTransactions(d *schema.ResourceData, meta interface{}) (inte
 
 	stateConf := &resource.StateChangeConf{
 		Pending: []string{"", "active"},
-		Target: "idle",
+		Target:  "idle",
 		Refresh: func() (interface{}, string, error) {
 			client := meta.(*Client).virtualGuestService
 			transactions, err := client.GetActiveTransactions(id)
@@ -331,8 +368,8 @@ func WaitForNoActiveTransactions(d *schema.ResourceData, meta interface{}) (inte
 				return transactions, "active", nil
 			}
 		},
-		Timeout: 10 * time.Minute,
-		Delay: 10 * time.Second,
+		Timeout:    10 * time.Minute,
+		Delay:      10 * time.Second,
 		MinTimeout: 3 * time.Second,
 	}
 
