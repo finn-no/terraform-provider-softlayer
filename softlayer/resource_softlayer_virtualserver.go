@@ -43,6 +43,12 @@ func resourceSoftLayerVirtualserver() *schema.Resource {
 				ValidateFunc: validateImageType,
 			},
 
+			"tags": &schema.Schema{
+				Type:     schema.TypeList,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+				Optional: true,
+			},
+
 			"region": &schema.Schema{
 				Type:     schema.TypeString,
 				Required: true,
@@ -228,6 +234,21 @@ func resourceSoftLayerVirtualserverCreate(d *schema.ResourceData, meta interface
 	if err != nil {
 		return fmt.Errorf(
 			"Error waiting for virtual machine (%s) to become ready: %s", d.Id(), err)
+	}
+
+	// insert tags on target virtual guest
+	num_tags := d.Get("tags.#").(int)
+	if num_tags > 0 {
+		log.Printf("[INFO] settings tags on virtual server")
+		// extract each tag first of all
+		tags := make([]string, 0, num_tags)
+		for i := 0; i < num_tags; i++ {
+			key := fmt.Sprintf("tags.%d", i)
+			tag := d.Get(key).(string)
+			tags = append(tags, tag)
+		}
+		// set the actual tags on the instance
+		client.SetTags(guest.Id, tags)
 	}
 
 	return resourceSoftLayerVirtualserverRead(d, meta)
