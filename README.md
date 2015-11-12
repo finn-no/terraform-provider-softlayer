@@ -64,6 +64,7 @@ resource "softlayer_virtualserver" "my_server_1" {
     name = "my_server_1"
     domain = "example.com"
     ssh_keys = ["123456"]
+    image_type = "os_code"
     image = "DEBIAN_7_64"
     region = "ams01"
     public_network_speed = 10
@@ -77,7 +78,8 @@ resource "softlayer_virtualserver" "my_server_2" {
     name = "my_server_2"
     domain = "example.com"
     ssh_keys = ["123456", "${softlayer_ssh_key.test_key_1.id}"]
-    image = "CENTOS_6_64"
+    image_type = "template_id"
+    image = "dacf4db1-69a8-4bc8-bade-f51bd286c4df"
     region = "ams01"
     public_network_speed = 10
     cpu = 1
