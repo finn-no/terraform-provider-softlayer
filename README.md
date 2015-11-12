@@ -3,6 +3,9 @@
 This is a terraform provider that lets you provision
 servers on SoftLayer via [Terraform](https://terraform.io/).
 
+Build status: [![Build Status](https://travis-ci.org/finn-no/terraform-provider-softlayer.svg?branch=master)](https://travis-ci.org/finn-no/terraform-provider-softlayer)
+
+
 ## Installing
 
 Binaries are published on Bintray: [ ![Download](https://api.bintray.com/packages/finn-no/terraform-provider-softlayer/terraform-provider-softlayer/images/download.svg) ](https://bintray.com/finn-no/terraform-provider-softlayer/terraform-provider-softlayer/_latestVersion)
