@@ -113,6 +113,13 @@ provider "softlayer" {}
 5.  Run `go install` to build the binary. You will now find the
     binary at `$GOPATH/bin/terraform-provider-softlayer`.
 
+## Releasing
+
+1. Update `.bintray.json` with the new version to be released (e.g. 0.1337), and the release date.
+2. Tag the release: `git tag 0.1337`
+3. Push the tag: `git push --tags`
+4. Travis CI will build and release the binaries.
+
 ## Running
 0.  You must create a new key not already added to softlayer (ssh-keygen).  We will assume that is id_rsa.
 1.  create the example file sl.tf in your working directory

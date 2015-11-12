@@ -14,10 +14,10 @@
   },
 
   "version": {
-    "name": "0.1",
-    "desc": "This is the 0.1 release.",
-    "released": "2015-10-12",
-    "vcs_tag": "0.1",
+    "name": "0.2",
+    "desc": "This is the 0.2 release.",
+    "released": "2015-11-12",
+    "vcs_tag": "0.2",
     "gpgSign": false
   },
 
