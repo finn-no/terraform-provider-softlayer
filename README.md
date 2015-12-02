@@ -63,7 +63,7 @@ resource "softlayer_ssh_key" "test_key_1" {
 
 # Virtual Server created with existing SSH Key already in SoftLayer \
 # inventory and not created using this Terraform template.
-resource "softlayer_virtualserver" "my_server_1" {
+resource "softlayer_virtualserver" "myserver1" {
     name = "my_server_1"
     domain = "example.com"
     ssh_keys = ["123456"]
@@ -77,7 +77,7 @@ resource "softlayer_virtualserver" "my_server_1" {
 
 # Virtual Server created with a mix of previously existing and \
 # Terraform created/managed resources.
-resource "softlayer_virtualserver" "my_server_2" {
+resource "softlayer_virtualserver" "myserver2" {
     name = "my_server_2"
     domain = "example.com"
     ssh_keys = ["123456", "${softlayer_ssh_key.test_key_1.id}"]
