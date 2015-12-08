@@ -13,6 +13,8 @@ Binaries are published on Bintray: [ ![Download](https://api.bintray.com/package
 [Copied from the Terraform documentation](https://www.terraform.io/docs/plugins/basics.html):
 > To install a plugin, put the binary somewhere on your filesystem, then configure Terraform to be able to find it. The configuration where plugins are defined is ~/.terraformrc for Unix-like systems and %APPDATA%/terraform.rc for Windows.
 
+The binary should be renamed to terraform-provider-softlayer
+
 You should update your .terraformrc and refer to the binary:
 
 ```hcl
