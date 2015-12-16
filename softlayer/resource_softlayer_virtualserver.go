@@ -255,6 +255,20 @@ func resourceSoftLayerVirtualserverRead(d *schema.ResourceData, meta interface{}
 	d.Set("has_public_ip", result.PrimaryIpAddress != "")
 	d.Set("ipv4_address", result.PrimaryIpAddress)
 	d.Set("ipv4_address_private", result.PrimaryBackendIpAddress)
+
+	connIpAddress := ""
+	if result.PrimaryIpAddress != "" {
+		connIpAddress = result.PrimaryIpAddress
+	} else {
+		connIpAddress = result.PrimaryBackendIpAddress
+	}
+
+	log.Printf("[INFO] Setting ConnInfo IP: %s", connIpAddress)
+	d.SetConnInfo(map[string]string{
+		"type": "ssh",
+		"host": connIpAddress,
+	})
+
 	return nil
 }
 
