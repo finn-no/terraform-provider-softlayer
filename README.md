@@ -75,6 +75,7 @@ resource "softlayer_virtualserver" "myserver1" {
     public_network_speed = 10
     cpu = 1
     ram = 1024
+    tags = ["development", "experimental"]
 }
 
 # Virtual Server created with a mix of previously existing and \
@@ -89,6 +90,7 @@ resource "softlayer_virtualserver" "myserver2" {
     public_network_speed = 10
     cpu = 1
     ram = 1024
+    tags = ["production", "www"]
 }
 ```
 
